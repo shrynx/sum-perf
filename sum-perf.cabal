@@ -16,5 +16,6 @@ executable sum-perf
                     ,  criterion
                     ,  monad-loops
                     ,  extra
+                    ,  random
   default-language:    Haskell2010
   ghc-options:         -O2 -threaded -rtsopts -with-rtsopts=-N

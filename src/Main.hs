@@ -1,3 +1,5 @@
+{-# LANGUAGE BangPatterns #-}
+
 module Main where
 
 import           Criterion.Main
@@ -5,6 +7,7 @@ import           Control.Monad.ST
 import           Data.STRef
 import           Control.Monad.Loops
 import           Control.Monad.Extra
+import           System.Random
 
 bigSumNaive :: Int -> Int
 bigSumNaive n = sum $ filter(\x -> mod x 7 == 0 && mod x 5 /= 0) [1..n]
@@ -50,14 +53,24 @@ bigSumStateRef n = runST $ do
     (#=#) :: STRef s a -> ST s a -> ST s ()
     (#=#) r x = writeSTRef r =<< x
 
+bigSumRandom :: Int -> IO ()
+bigSumRandom n = do
+    r <- randomRIO (2,20) :: IO Int
+    let !_ = sum $ takeWhile (<n) $ scanl (+) 7 $ cycle $ buildList r 7
+    return ()
+    where
+      buildList :: Int -> Int -> [Int]
+      buildList k m = replicate (k-2) m ++ [m*2]
+
 main :: IO()
 main =  defaultMain [
   bgroup "big sum" [ bench "naive" $ whnf bigSumNaive n
-                   , bench "orignal" $ whnf bigSumOrig n
+                   , bench "original" $ whnf bigSumOrig n
                    , bench "list comprehension" $ whnf bigSumListComprehension n
                    , bench "drop every" $ whnf bigSumDropEvery n
                    , bench "tail recursion" $ whnf bigSumTailRec n
                    , bench "state ref" $ whnf bigSumStateRef n
+                   , bench "random" $ nfIO (bigSumRandom n)
                    ]
   ]
   where n = 100000000
