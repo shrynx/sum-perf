@@ -6,35 +6,49 @@ sum all numbers from 0 - 10^8 which are divisible by 7, but not divisible by 5
 
 ## Result
 
-[Report](https://file-wmpmdiepmi.now.sh/)
+[Report](https://file-xcxzeqipks.now.sh)
 
 ```
 benchmarking big sum/naive
-time                 1.422 s    (1.036 s .. 1.604 s)
-                     0.991 R²   (0.977 R² .. 1.000 R²)
-mean                 1.430 s    (1.374 s .. 1.467 s)
-std dev              56.33 ms   (0.0 s .. 65.02 ms)
+time                 1.413 s    (1.209 s .. 1.657 s)
+                     0.997 R²   (NaN R² .. 1.000 R²)
+mean                 1.545 s    (1.486 s .. 1.648 s)
+std dev              89.28 ms   (0.0 s .. 93.42 ms)
 variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking big sum/orignal
-time                 35.02 ms   (34.69 ms .. 35.70 ms)
+time                 34.91 ms   (34.43 ms .. 35.28 ms)
                      0.999 R²   (0.998 R² .. 1.000 R²)
-mean                 34.99 ms   (34.81 ms .. 35.23 ms)
-std dev              404.8 μs   (266.9 μs .. 626.9 μs)
+mean                 35.76 ms   (35.42 ms .. 36.28 ms)
+std dev              877.4 μs   (616.7 μs .. 1.125 ms)
+
+benchmarking big sum/list comprehension
+time                 192.8 ms   (174.9 ms .. 205.6 ms)
+                     0.999 R²   (0.997 R² .. 1.000 R²)
+mean                 193.5 ms   (189.7 ms .. 196.0 ms)
+std dev              3.721 ms   (0.0 s .. 4.294 ms)
+variance introduced by outliers: 19% (moderately inflated)
+
+benchmarking big sum/drop every
+time                 56.34 ms   (46.17 ms .. 65.02 ms)
+                     0.994 R²   (0.994 R² .. 1.000 R²)
+mean                 59.95 ms   (59.18 ms .. 60.44 ms)
+std dev              734.9 μs   (0.0 s .. 844.1 μs)
+variance introduced by outliers: 19% (moderately inflated)
 
 benchmarking big sum/tail recursion
-time                 153.2 ms   (151.9 ms .. 153.6 ms)
-                     1.000 R²   (1.000 R² .. 1.000 R²)
-mean                 152.7 ms   (152.4 ms .. 153.0 ms)
-std dev              421.1 μs   (277.1 μs .. 589.1 μs)
+time                 161.4 ms   (159.0 ms .. 162.7 ms)
+                     1.000 R²   (0.999 R² .. 1.000 R²)
+mean                 161.1 ms   (159.8 ms .. 161.9 ms)
+std dev              1.341 ms   (787.4 μs .. 1.978 ms)
 variance introduced by outliers: 12% (moderately inflated)
 
 benchmarking big sum/state ref
-time                 2.426 s    (1.375 s .. 3.458 s)
-                     0.964 R²   (0.962 R² .. 1.000 R²)
-mean                 2.701 s    (2.416 s .. 2.870 s)
-std dev              259.4 ms   (0.0 s .. 293.0 ms)
-variance introduced by outliers: 22% (moderately inflated)
+time                 4.910 s    (4.216 s .. 5.847 s)
+                     0.994 R²   (0.993 R² .. 1.000 R²)
+mean                 5.105 s    (4.891 s .. 5.245 s)
+std dev              209.6 ms   (0.0 s .. 241.8 ms)
+variance introduced by outliers: 19% (moderately inflated)
 ```
 
 ```

@@ -12,6 +12,15 @@ bigSumNaive n = sum $ filter(\x -> mod x 7 == 0 && mod x 5 /= 0) [1..n]
 bigSumOrig :: Int -> Int
 bigSumOrig n = sum $ takeWhile (<n) $ scanl (+) 7 $ cycle [7, 7, 7, 14]
 
+bigSumListComprehension:: Int -> Int
+bigSumListComprehension n = sum $ takeWhile (<n) [x | x <- [7,14..] , mod x 5 /= 0 ]
+
+bigSumDropEvery:: Int -> Int
+bigSumDropEvery n = sum $ takeWhile (<n) $ dropEvery 5 [7,14..]
+  where
+    dropEvery _ [] = []
+    dropEvery n xs = take (n-1) xs ++ dropEvery n (drop n xs)
+
 bigSumTailRec :: Int -> Int
 bigSumTailRec n = summer 7 0
   where
@@ -45,6 +54,8 @@ main :: IO()
 main =  defaultMain [
   bgroup "big sum" [ bench "naive" $ whnf bigSumNaive n
                    , bench "orignal" $ whnf bigSumOrig n
+                   , bench "list comprehension" $ whnf bigSumListComprehension n
+                   , bench "drop every" $ whnf bigSumDropEvery n
                    , bench "tail recursion" $ whnf bigSumTailRec n
                    , bench "state ref" $ whnf bigSumStateRef n
                    ]
